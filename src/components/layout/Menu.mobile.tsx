@@ -1,7 +1,6 @@
-import { MenuIcon, UserIcon } from 'lucide-react';
-import Link from 'next/link';
-import { useState } from 'react';
-import AccountLinks from './AccountLinks';
+import { MenuIcon, UserIcon } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +21,7 @@ const Menu = () => {
         <span className="sr-only">Menu</span>
       </button>
       {isOpen && (
-        <div className="absolute flex justify-center items-center flex-col gap-6 text-xl top-[80px] left-0 w-full bg-primary h-[calc(100dvh-80px)] text-white font-bold">
+        <div className="absolute left-0 top-[80px] z-[10] flex h-[calc(100dvh-80px)] min-h-[400px] w-full flex-col items-center justify-center gap-6 bg-primary text-xl font-bold text-white">
           <Link href="/" onClick={closeMenu}>
             Home
           </Link>
@@ -32,7 +31,7 @@ const Menu = () => {
           <Link href="/shop" onClick={closeMenu}>
             Shop
           </Link>
-          <hr className="my-4 h-[2px] bg-white w-1/4" />
+          <hr className="my-4 h-[2px] w-1/4 bg-white" />
           {isLoggedIn ? (
             <>
               <Link href="/account" className="flex items-center gap-1">
@@ -41,7 +40,7 @@ const Menu = () => {
               <Link href="/signout">Sign Out</Link>
             </>
           ) : (
-            <div className="flex gap-1 items-center">
+            <div className="flex items-center gap-1">
               <UserIcon width={20} height={20} />
               <Link href="/login">Sign In</Link>
             </div>
