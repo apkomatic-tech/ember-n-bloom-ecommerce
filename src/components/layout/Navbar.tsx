@@ -1,18 +1,20 @@
-'use client';
-import Link from 'next/link';
-import Menu from './Menu.mobile';
-import AccountLinks from './AccountLinks';
+"use client";
+import Link from "next/link";
+import Menu from "./Menu.mobile";
+import AccountLinks from "./AccountLinks";
 
 const Navbar = () => {
   return (
-    <header className="relative h-20 px-4 md:px-16 lg:px-25">
-      <div className="max-w-screen-2xl mx-auto py-4 h-full">
-        <div className="flex justify-between items-center h-full">
+    <header className="relative h-20 px-4 2xl:px-0">
+      <div className="mx-auto h-full max-w-screen-2xl py-4">
+        <div className="flex h-full items-center justify-between">
           <Link href="/">
-            <div className="tracking-wider text-xl text-primary">Ember &amp; Bloom</div>
+            <div className="text-xl tracking-wider text-primary">
+              Ember &amp; Bloom
+            </div>
           </Link>
-          <div className="hidden md:flex gap-16 items-center">
-            <div className="md:hidden lg:flex gap-6 items-center">
+          <div className="hidden items-center gap-16 md:flex">
+            <div className="items-center gap-6 md:hidden lg:flex">
               <Link href="/" className="hover:text-secondary">
                 Home
               </Link>
