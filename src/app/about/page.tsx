@@ -6,7 +6,7 @@ import aboutImage from "@/images/about.jpg";
 
 function AboutUsPage() {
   return (
-    <div className="grid gap-24 px-4 lg:grid-cols-2 2xl:px-0">
+    <div className="grid gap-24 px-4 xl:grid-cols-[2fr_1fr] 2xl:px-0">
       {/* left column */}
       <div>
         <h1 className="mb-8 text-4xl font-bold">About</h1>
@@ -72,8 +72,12 @@ function AboutUsPage() {
         </div>
       </div>
       {/* right column */}
-      <div className="hidden lg:block">
-        <Image src={aboutImage} alt="" className="rounded-md" />
+      <div className="hidden xl:block">
+        <Image
+          src={aboutImage}
+          alt=""
+          className="aspect-auto w-full rounded-md object-contain"
+        />
       </div>
     </div>
   );
