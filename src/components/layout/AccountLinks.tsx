@@ -8,30 +8,28 @@ const AccountLinks = () => {
 
   if (isLoggedIn) {
     return (
-      <div>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <div className="flex items-center gap-1 text-sm">
-              <UserIcon width={20} height={20} />
-              <span>Username</span>
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href="/account" className="w-full text-sm">
-                Profile Page
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link href="/signout" className="w-full text-sm">
-                Sign Out
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      <DropdownMenu>
+        <DropdownMenuTrigger className="h-full block">
+          <div className="flex items-center gap-1 text-sm">
+            <UserIcon width={22} height={22} />
+            <span>Username</span>
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <Link href="/account" className="w-full text-sm">
+              Profile Page
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/signout" className="w-full text-sm">
+              Sign Out
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   }
 
