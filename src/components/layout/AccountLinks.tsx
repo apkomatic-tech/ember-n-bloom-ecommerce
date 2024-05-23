@@ -1,15 +1,22 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
-import { UserIcon } from 'lucide-react';
-import Link from 'next/link';
-import { Button } from '../ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { UserIcon } from "lucide-react";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 const AccountLinks = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   if (isLoggedIn) {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger className="h-full block">
+        <DropdownMenuTrigger className="block h-full">
           <div className="flex items-center gap-1 text-sm">
             <UserIcon width={22} height={22} />
             <span>Username</span>
@@ -34,8 +41,8 @@ const AccountLinks = () => {
   }
 
   return (
-    <div className="flex gap-4 items-center">
-      <Button size={'sm'} variant={'secondary'} asChild>
+    <div className="flex items-center gap-4">
+      <Button size={"sm"} variant={"secondary"} asChild>
         <Link href="/login">Login</Link>
       </Button>
     </div>
