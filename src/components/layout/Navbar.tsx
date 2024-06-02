@@ -22,9 +22,7 @@ const Navbar = () => {
       <div className="mx-auto h-full max-w-screen-2xl py-4">
         <div className="flex h-full items-center justify-between">
           <Link href="/">
-            <div className="text-xl tracking-wider text-primary">
-              Ember &amp; Bloom
-            </div>
+            <div className="text-xl tracking-wider">Ember &amp; Bloom</div>
           </Link>
           <div className="hidden items-center gap-16 md:flex">
             <NavigationMenu>

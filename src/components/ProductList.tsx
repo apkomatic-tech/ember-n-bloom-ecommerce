@@ -35,7 +35,7 @@ export default async function ProductList({
             <div className="relative h-60 overflow-hidden">
               {p.ribbon && (
                 <Badge
-                  variant={"default"}
+                  variant={"secondary"}
                   className="absolute right-1 top-1 z-[1]"
                 >
                   {p.ribbon}

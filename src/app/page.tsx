@@ -26,7 +26,7 @@ const HomePage = async () => {
             Discover premium loose leaf teas for every mood and moment. Explore
             our collections and find your perfect cup.
           </p>
-          <Button asChild size={"lg"}>
+          <Button asChild size={"lg"} variant={"secondary"}>
             <Link href="/shop">Shop Now</Link>
           </Button>
         </div>
