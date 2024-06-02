@@ -36,28 +36,39 @@ const Footer = () => {
               <div className="text-lg">Shop</div>
               <ul className="flex flex-col gap-2 text-black/60">
                 <li>
-                  <Link href="/shop">Black teas</Link>
+                  <Link href="/shop">All teas</Link>
                 </li>
                 <li>
-                  <Link href="/shop">Green teas</Link>
+                  <Link href="/shop?categoryid=23973281-265c-669d-ee48-b6f566aea329">
+                    Featured teas
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/shop">Herbal teas</Link>
+                  <Link href="/shop?categoryid=3875a38b-d9b8-cf21-dbed-88c7a77659f2">
+                    Black teas
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shop?categoryid=1d2ba839-b053-9415-786a-c2dba43e6058">
+                    Green teas
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shop?categoryid=0e06f4d7-76ee-3f12-8f94-939e1b2ea119">
+                    Herbal teas
+                  </Link>
                 </li>
               </ul>
             </div>
             {/* Column 2 */}
             <div className="flex flex-col gap-4">
-              <div className="text-lg">Company</div>
+              <div className="text-lg">Resources</div>
               <ul className="flex flex-col gap-2 text-black/60">
                 <li>
-                  <Link href="/shop">About Us</Link>
+                  <Link href="/about">About Us</Link>
                 </li>
                 <li>
-                  <Link href="/shop">Contact</Link>
-                </li>
-                <li>
-                  <Link href="/shop">Return Policy</Link>
+                  <Link href="/contact">Contact</Link>
                 </li>
               </ul>
             </div>

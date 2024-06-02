@@ -1,99 +1,52 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+import ProductList from "@/components/ProductList";
+import ProductListSkeleton from "@/components/ProductListSkeleton";
+import { wixStoreServer } from "@/lib/wixStoreServer";
+import React, { Suspense } from "react";
+import ProductCategoryBanner from "@/components/ProductCategoryBanner";
+import { DEFAULT_CATEGORY_ID } from "@/lib/constants";
+// @ts-ignore
+async function ShopPage({ searchParams }) {
+  const categoryIdFromQuery = searchParams.categoryid ?? DEFAULT_CATEGORY_ID;
+  const store = await wixStoreServer();
+  const collections = await store.collections
+    .queryCollections()
+    .eq("_id", categoryIdFromQuery)
+    .find();
 
-import teaImage1 from "@/images/tea-1.jpg";
-import teaImage2 from "@/images/tea-2.jpg";
-import teaImage3 from "@/images/tea-3.jpg";
-import teaImage4 from "@/images/tea-4.jpg";
-import teaImage5 from "@/images/tea-5.jpg";
-import teaImage6 from "@/images/tea-6.jpg";
+  const category = collections?.items[0] ?? null;
+  const productCount = collections?.items[0]?.numberOfProducts ?? 0;
+  const categoryId = category?._id || DEFAULT_CATEGORY_ID;
+  const categoryName = category?.name || "All Products";
+  const categoryImage = category?.media?.mainMedia?.image ?? null;
+  const categoryImagePath = categoryImage?.url ?? null;
+  const categoryImageWidth = categoryImage?.width ?? 1;
+  const categoryImageHeight = categoryImage?.height ?? 1;
 
-async function ShopPage() {
-  const products = [
-    // Black Tea
-    {
-      name: "Classic English Breakfast",
-      description:
-        "A robust morning tea blend to jumpstart your day. Full-bodied with malty notes and a hint of citrus.",
-      price: 12.99,
-      type: "black",
-      image: teaImage1,
-    },
-    {
-      name: "Earl Grey",
-      description:
-        "A sophisticated black tea with a distinctive bergamot orange aroma. Elegant and refreshing.",
-      price: 14.99,
-      type: "black",
-      image: teaImage2,
-    },
-    // Green Tea
-    {
-      name: "Sencha",
-      description:
-        "A classic Japanese green tea known for its refreshing grassy aroma and taste. Delicate and invigorating.",
-      price: 11.99,
-      type: "green",
-      image: teaImage3,
-    },
-    {
-      name: "Dragonwell",
-      description:
-        "A delicate green tea from China with a subtle sweetness and a hint of nuttiness. Smooth and elegant.",
-      price: 16.99,
-      type: "green",
-      image: teaImage4,
-    },
-    // Herbal Tea
-    {
-      name: "Peppermint",
-      description:
-        "A refreshing herbal tea with a minty aroma and taste. Cooling and aids digestion.",
-      price: 9.99,
-      type: "herbal",
-      image: teaImage5,
-    },
-    {
-      name: "Chamomile Dreams",
-      description:
-        "A soothing herbal tea with calming properties for relaxation and better sleep. Floral and calming aroma.",
-      price: 10.99,
-      type: "herbal",
-      image: teaImage6,
-    },
-  ];
-  const searchParams = new URLSearchParams();
-  const typeFilter = searchParams.get("type") ?? "all";
-  console.log(searchParams);
-  console.log(typeFilter);
   return (
-    <div className="mt-12 px-6 xl:mt-16 2xl:px-0">
-      <h2 className="mb-6 text-2xl">Shop</h2>
-      <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((p) => {
-          return (
-            <Link
-              href={`/shop/${p.name.replaceAll(" ", "-").toLowerCase()}`}
-              key={p.name}
-              className="group flex flex-col gap-5"
-            >
-              <div className="h-60 overflow-hidden">
-                <Image
-                  src={p.image}
-                  className="block aspect-auto h-full w-full transform rounded-md object-cover duration-300 group-hover:opacity-80"
-                  alt=""
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <h3>{p.name}</h3>
-                {/* <p className="text-black/60">{p.description}</p> */}
-                <p>${p.price}</p>
-              </div>
-            </Link>
-          );
-        })}
+    <div className="mt-4 px-6 2xl:px-0">
+      {categoryImage && categoryImagePath ? (
+        <div className="mb-12">
+          <ProductCategoryBanner
+            categoryImageUrl={categoryImagePath}
+            categoryImageWidth={categoryImageWidth}
+            categoryImageHeight={categoryImageHeight}
+            categoryName={categoryName}
+          />
+        </div>
+      ) : (
+        <h1 className="mb-6 text-2xl">{categoryName}</h1>
+      )}
+
+      <div className="mb-2 text-sm text-black/75">
+        Number of products: {productCount}
       </div>
+
+      <Suspense fallback={<ProductListSkeleton count={productCount} />}>
+        <ProductList
+          categoryId={categoryId}
+          numberOfProductsToShow={productCount}
+        />
+      </Suspense>
     </div>
   );
 }

@@ -21,17 +21,46 @@ const Menu = () => {
         <span className="sr-only">Menu</span>
       </button>
       {isOpen && (
-        <div className="absolute left-0 top-[80px] z-[10] flex h-[calc(100dvh-80px)] min-h-[400px] w-full flex-col items-center justify-center gap-6 bg-primary text-xl font-bold text-white">
+        <div className="absolute left-0 top-[80px] z-[10] flex h-[calc(100dvh-80px)] min-h-[400px] w-full flex-col items-center gap-6 bg-secondary pt-24 text-xl font-bold text-white">
+          <Link href="/shop">All teas</Link>
+
+          <Link
+            href="/shop?categoryid=23973281-265c-669d-ee48-b6f566aea329"
+            onClick={closeMenu}
+          >
+            Featured teas
+          </Link>
+
+          <Link
+            href="/shop?categoryid=3875a38b-d9b8-cf21-dbed-88c7a77659f2"
+            onClick={closeMenu}
+          >
+            Black teas
+          </Link>
+
+          <Link
+            href="/shop?categoryid=1d2ba839-b053-9415-786a-c2dba43e6058"
+            onClick={closeMenu}
+          >
+            Green teas
+          </Link>
+
+          <Link
+            href="/shop?categoryid=0e06f4d7-76ee-3f12-8f94-939e1b2ea119"
+            onClick={closeMenu}
+          >
+            Herbal teas
+          </Link>
+          <hr className="my-1 h-[1px] w-1/2 bg-white opacity-50 md:w-1/4" />
+
           <Link href="/" onClick={closeMenu}>
             Home
           </Link>
           <Link href="/about" onClick={closeMenu}>
             About
           </Link>
-          <Link href="/shop" onClick={closeMenu}>
-            Shop
-          </Link>
-          <hr className="my-4 h-[2px] w-1/4 bg-white" />
+
+          <hr className="my-1 h-[1px] w-1/2 bg-white opacity-50 md:w-1/4" />
           {isLoggedIn ? (
             <>
               <Link href="/account" className="flex items-center gap-1">
