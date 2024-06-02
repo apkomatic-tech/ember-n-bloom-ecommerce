@@ -21,7 +21,7 @@ const Menu = () => {
         <span className="sr-only">Menu</span>
       </button>
       {isOpen && (
-        <div className="absolute left-0 top-[80px] z-[10] flex h-[calc(100dvh-80px)] min-h-[400px] w-full flex-col items-center gap-6 bg-secondary pt-24 text-xl font-bold text-white">
+        <div className="absolute left-0 top-[80px] z-[10] flex h-[calc(100dvh-80px)] min-h-[400px] w-full flex-col items-center gap-6 bg-secondary pt-24 text-xl font-bold text-black/80">
           <Link href="/shop">All teas</Link>
 
           <Link
@@ -51,7 +51,7 @@ const Menu = () => {
           >
             Herbal teas
           </Link>
-          <hr className="my-1 h-[1px] w-1/2 bg-white opacity-50 md:w-1/4" />
+          <div className="b-0 my-1 block h-[1px] w-1/2 bg-black/10 md:w-1/4" />
 
           <Link href="/" onClick={closeMenu}>
             Home
@@ -60,7 +60,7 @@ const Menu = () => {
             About
           </Link>
 
-          <hr className="my-1 h-[1px] w-1/2 bg-white opacity-50 md:w-1/4" />
+          <div className="b-0 my-1 block h-[1px] w-1/2 bg-black/10 md:w-1/4" />
           {isLoggedIn ? (
             <>
               <Link href="/account" className="flex items-center gap-1">
