@@ -26,8 +26,6 @@ export default async function ProductList({
     <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
       {data.items.map((p) => {
         const imageUrl = p.media?.mainMedia?.image?.url ?? "";
-        console.log("ribbon", p.ribbon);
-        console.log("ribbons", p.ribbons);
         return (
           <Link
             href={`/shop/${p.slug}`}
