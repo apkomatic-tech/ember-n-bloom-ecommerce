@@ -1,9 +1,9 @@
 import React from "react";
-import sampleProductImage from "@/images/tea-1.jpg";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { wixStoreServer } from "@/lib/wixStoreServer";
 import { Badge } from "@/components/ui/badge";
+import { notFound } from "next/navigation";
 
 async function getProductDetailsBySlug(slug: string) {
   const wixStore = await wixStoreServer();
@@ -18,11 +18,18 @@ async function getProductDetailsBySlug(slug: string) {
 async function ProductDetailPage({ params }: { params: { slug: string } }) {
   const productData = await getProductDetailsBySlug(params.slug);
   const [product] = productData.items;
+
+  // 404 if product doesn't exist
+  if (!product) {
+    notFound();
+  }
+
   const { name, description, media, price, ribbons } = product;
   const productImageUrl = media?.mainMedia?.image?.url ?? "";
   const productImageWidth = media?.mainMedia?.image?.width ?? 0;
   const productImageHeight = media?.mainMedia?.image?.height ?? 0;
   const productPriceFormatted = price?.formatted?.price;
+
   return (
     <div className="mt-4 grid gap-8 px-4 md:grid-cols-2 md:gap-16 lg:gap-32 2xl:px-0">
       {/* Left column (image) */}
@@ -49,10 +56,10 @@ async function ProductDetailPage({ params }: { params: { slug: string } }) {
         <h1 className="text-2xl font-bold lg:text-3xl">{name}</h1>
         <p className="text-xl">{productPriceFormatted}</p>
         {description && (
-          <p
+          <div
             className="text-black/60"
             dangerouslySetInnerHTML={{ __html: description }}
-          ></p>
+          ></div>
         )}
         <Button className="w-full md:w-1/2" variant={"default"}>
           Add To Cart
