@@ -21,6 +21,7 @@ async function ShopPage({ searchParams }) {
   const categoryImagePath = categoryImage?.url ?? null;
   const categoryImageWidth = categoryImage?.width ?? 1;
   const categoryImageHeight = categoryImage?.height ?? 1;
+  const itemCount = collections?.items?.length ?? 0;
 
   return (
     <div className="mt-4 px-6 2xl:px-0">
@@ -37,16 +38,22 @@ async function ShopPage({ searchParams }) {
         <h1 className="mb-6 text-2xl">{categoryName}</h1>
       )}
 
-      <div className="mb-2 text-sm text-black/75">
-        Number of products: {productCount}
-      </div>
+      {itemCount !== 0 ? (
+        <div className="mb-2 text-sm text-black/75">
+          Number of products: {productCount}
+        </div>
+      ) : null}
 
-      <Suspense fallback={<ProductListSkeleton count={productCount} />}>
-        <ProductList
-          categoryId={categoryId}
-          numberOfProductsToShow={productCount}
-        />
-      </Suspense>
+      {itemCount !== 0 ? (
+        <Suspense fallback={<ProductListSkeleton count={productCount} />}>
+          <ProductList
+            categoryId={categoryId}
+            numberOfProductsToShow={productCount}
+          />
+        </Suspense>
+      ) : (
+        <p className="mb-6 text-xl">No products found</p>
+      )}
     </div>
   );
 }
