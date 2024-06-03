@@ -22,7 +22,9 @@ const Menu = () => {
       </button>
       {isOpen && (
         <div className="absolute left-0 top-[80px] z-[10] flex h-[calc(100dvh-80px)] min-h-[400px] w-full flex-col items-center gap-6 bg-secondary pt-24 text-xl font-bold text-black/80">
-          <Link href="/shop">All teas</Link>
+          <Link href="/shop" onClick={closeMenu}>
+            All teas
+          </Link>
 
           <Link
             href="/shop?categoryid=23973281-265c-669d-ee48-b6f566aea329"
