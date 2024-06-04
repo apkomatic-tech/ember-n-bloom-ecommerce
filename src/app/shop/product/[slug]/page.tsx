@@ -56,10 +56,10 @@ async function ProductDetailPage({ params }: { params: { slug: string } }) {
         <h1 className="text-2xl font-bold lg:text-3xl">{name}</h1>
         <p className="text-xl">{productPriceFormatted}</p>
         {description && (
-          <div
+          <d
             className="text-black/60"
             dangerouslySetInnerHTML={{ __html: description }}
-          ></div>
+          ></d>
         )}
         <Button className="w-full md:w-1/2" variant={"default"}>
           Add To Cart

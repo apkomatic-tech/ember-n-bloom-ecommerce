@@ -28,7 +28,7 @@ export default async function ProductList({
         const imageUrl = p.media?.mainMedia?.image?.url ?? "";
         return (
           <Link
-            href={`/shop/${p.slug}`}
+            href={`/shop/product/${p.slug}`}
             key={p._id}
             className="group flex flex-col gap-5"
           >
@@ -46,6 +46,7 @@ export default async function ProductList({
                 width={p.media?.mainMedia?.image?.width ?? 1}
                 height={p.media?.mainMedia?.image?.height ?? 1}
                 className="block aspect-auto h-full w-full transform rounded-md object-cover duration-300 group-hover:opacity-80"
+                loading="lazy"
                 alt=""
               />
             </div>
