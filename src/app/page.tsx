@@ -27,7 +27,7 @@ const HomePage = async () => {
             our collections and find your perfect cup.
           </p>
           <Button asChild size={"lg"} variant={"secondary"}>
-            <Link href="/shop">Shop Now</Link>
+            <Link href="/shop/category/all">Shop Now</Link>
           </Button>
         </div>
       </div>
