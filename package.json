@@ -12,6 +12,7 @@
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-slot": "^1.0.2",
+    "@wix/members": "^1.0.85",
     "@wix/sdk": "^1.9.7",
     "@wix/stores": "^1.0.153",
     "class-variance-authority": "^0.7.0",
