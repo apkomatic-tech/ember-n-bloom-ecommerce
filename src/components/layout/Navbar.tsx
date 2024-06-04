@@ -15,6 +15,7 @@ import {
 
 import Menu from "./Menu.mobile";
 import AccountLinks from "./AccountLinks";
+import { CATEGORY_LINKS } from "@/constants";
 
 const Navbar = () => {
   return (
@@ -31,57 +32,20 @@ const Navbar = () => {
                   <NavigationMenuTrigger>Shop</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid p-4">
-                      <Link href="/shop" legacyBehavior passHref>
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
+                      {CATEGORY_LINKS.map((link) => (
+                        <Link
+                          key={link.name}
+                          href={link.href}
+                          legacyBehavior
+                          passHref
                         >
-                          All Teas
-                        </NavigationMenuLink>
-                      </Link>
-                      <Link
-                        href="/shop?categoryid=23973281-265c-669d-ee48-b6f566aea329"
-                        legacyBehavior
-                        passHref
-                      >
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          Featured Teas
-                        </NavigationMenuLink>
-                      </Link>
-                      <Link
-                        href="/shop?categoryid=3875a38b-d9b8-cf21-dbed-88c7a77659f2"
-                        legacyBehavior
-                        passHref
-                      >
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          Black Teas
-                        </NavigationMenuLink>
-                      </Link>
-                      <Link
-                        href="/shop?categoryid=1d2ba839-b053-9415-786a-c2dba43e6058"
-                        legacyBehavior
-                        passHref
-                      >
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          Green Teas
-                        </NavigationMenuLink>
-                      </Link>
-                      <Link
-                        href="/shop?categoryid=0e06f4d7-76ee-3f12-8f94-939e1b2ea119"
-                        legacyBehavior
-                        passHref
-                      >
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          Herbal Teas
-                        </NavigationMenuLink>
-                      </Link>
+                          <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                          >
+                            {link.name}
+                          </NavigationMenuLink>
+                        </Link>
+                      ))}
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
