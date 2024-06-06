@@ -1,19 +1,27 @@
 "use client";
 
 import { OAuthStrategy, createClient } from "@wix/sdk";
+import { products, collections } from "@wix/stores";
 import { members } from "@wix/members";
 import Cookies from "js-cookie";
-import { createContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
+const refreshToken = JSON.parse(Cookies.get("refreshToken") || "{}");
 const wixClient = createClient({
   modules: {
+    products,
+    collections,
     members,
   },
   auth: OAuthStrategy({
     clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID!,
-    tokens: JSON.parse(
-      Cookies.get("session") || '{"accessToken": {}, "refreshToken": {}}',
-    ),
+    tokens: {
+      accessToken: {
+        value: "",
+        expiresAt: 30,
+      },
+      refreshToken,
+    },
   }),
 });
 

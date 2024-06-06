@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,17 +11,21 @@ import {
 import { UserIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { useClientAuth } from "@/hooks/useClientAuth";
+import { useContext } from "react";
+import { WixClientContext } from "@/app/context/WixClientStoreProvider";
 
 const AccountLinks = () => {
-  const isLoggedIn = false;
-
-  if (isLoggedIn) {
+  const wixClient = useContext(WixClientContext);
+  const { user, loggedIn } = useClientAuth();
+  console.log(user);
+  if (loggedIn) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger className="block h-full">
           <div className="flex items-center gap-1 text-sm">
             <UserIcon width={22} height={22} />
-            <span>Username</span>
+            <span>{user?.profile?.nickname ?? "Account"}</span>
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -31,9 +37,14 @@ const AccountLinks = () => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/signout" className="w-full text-sm">
+            <Button
+              onClick={async () =>
+                await wixClient.auth.logout(window.location.href)
+              }
+              className="w-full text-sm"
+            >
               Sign Out
-            </Link>
+            </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
