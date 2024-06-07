@@ -24,4 +24,3 @@ Ember & Bloom is a next.js project that showcases a premium loose leaf tea store
 - Tailwind CSS
 - Typescript
 - Headless ecommerce (Wix)
-  <<<<<<< bc1c91d4-ac65-4042-8f03-a238d9d1f8e4 >>>>>>>
