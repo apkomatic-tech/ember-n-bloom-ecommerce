@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,9 +14,12 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-import Menu from "./Menu.mobile";
-import AccountLinks from "./AccountLinks";
+// import Menu from "./Menu.mobile";
+// import AccountLinks from "./AccountLinks";
 import { CATEGORY_LINKS } from "@/constants";
+
+const Menu = dynamic(() => import("./Menu.mobile"), { ssr: false });
+const AccountLinks = dynamic(() => import("./AccountLinks"), { ssr: false });
 
 const Navbar = () => {
   return (
