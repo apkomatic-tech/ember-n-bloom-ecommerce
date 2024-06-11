@@ -1,7 +1,10 @@
+"use client";
+
 import { CATEGORY_LINKS } from "@/constants";
 import { MenuIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import SignoutButton from "../SignoutButton";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +47,7 @@ const Menu = () => {
               <Link href="/account" className="flex items-center gap-1">
                 <UserIcon width={20} height={20} /> Account
               </Link>
-              <Link href="/signout">Sign Out</Link>
+              <SignoutButton className="w-full text-sm" />
             </>
           ) : (
             <div className="flex items-center gap-1">
