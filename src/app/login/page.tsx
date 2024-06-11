@@ -17,6 +17,8 @@ import { z } from "zod";
 import { WixClientContext } from "../context/WixClientStoreProvider";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { LoginState } from "@wix/sdk";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -80,7 +82,7 @@ export default function LoginPage() {
       }
 
       switch (response?.loginState) {
-        case "SUCCESS":
+        case LoginState.SUCCESS:
           const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
             response.data.sessionToken,
           );
@@ -90,7 +92,30 @@ export default function LoginPage() {
           wixClient.auth.setTokens(tokens);
           router.push("/");
           break;
+        case LoginState.FAILURE:
+          switch (response.errorCode) {
+            case "invalidEmail":
+            case "invalidPassword":
+              setError("Invalid email or password");
+              break;
+            case "emailAlreadyExists":
+              setError("Email already exists");
+              break;
+            case "resetPassword":
+              setError("Please reset your password");
+              break;
+            default:
+              break;
+          }
+          break;
+        case LoginState.OWNER_APPROVAL_REQUIRED:
+          setError("Owner approval required");
+          break;
+        case LoginState.EMAIL_VERIFICATION_REQUIRED:
+          setError("Email verification required");
+          break;
         default:
+          setError("Something went wrong");
           break;
       }
     } catch (error) {
@@ -105,7 +130,6 @@ export default function LoginPage() {
       <h1 className="mb-8 text-2xl font-bold">
         {mode === Mode.Login ? "Login" : "Register"}
       </h1>
-      {error && <p className="mb-8 text-red-500">{error}</p>}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-4">
@@ -136,11 +160,15 @@ export default function LoginPage() {
               )}
             />
             <Button type="submit" disabled={loading}>
+              {loading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
               {mode === Mode.Login ? "Login" : "Register"}
             </Button>
           </div>
         </form>
       </Form>
+      {error && <div className="mt-4 text-sm text-red-600">{error}</div>}
       <div className="my-8 text-right text-sm">
         {mode === Mode.Login && (
           <span>
