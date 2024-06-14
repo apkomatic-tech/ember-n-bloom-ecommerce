@@ -14,15 +14,17 @@ import {
 } from "../ui/dropdown-menu";
 import { media } from "@wix/sdk";
 import Image from "next/image";
+import { useToast } from "../ui/use-toast";
 
 export default function CartModal() {
-  const { cart, subTotal, isLoading, removeFromCart } = useContext(CartContext);
+  const { cart, isLoading, removeFromCart } = useContext(CartContext);
   const cartItems = cart.lineItems || [];
   const itemsTotal =
     cartItems.reduce((total, item) => {
       total += item?.quantity || 0;
       return total;
     }, 0) || 0;
+  const { toast } = useToast();
 
   return (
     <DropdownMenu>
@@ -37,7 +39,9 @@ export default function CartModal() {
       <DropdownMenuContent
         className={cartItems.length > 0 ? "sm:w-60 lg:w-80" : ""}
       >
-        <DropdownMenuLabel>Shopping Cart</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-base">
+          Shopping Cart
+        </DropdownMenuLabel>
         {cartItems.length === 0 && (
           <DropdownMenuLabel className="font-normal">
             Cart is empty.
@@ -81,9 +85,19 @@ export default function CartModal() {
                       <button
                         type="button"
                         className="text-xs"
-                        onClick={() => {
+                        onClick={async () => {
                           const removeItemId = item?._id as string;
-                          removeFromCart(removeItemId);
+                          await removeFromCart(removeItemId);
+                          toast({
+                            description: (
+                              <div>
+                                <span className="italic">
+                                  {item.productName?.original}
+                                </span>{" "}
+                                was removed from your cart
+                              </div>
+                            ),
+                          });
                         }}
                       >
                         <Trash2Icon size={20} className="text-red-600" />
@@ -94,6 +108,16 @@ export default function CartModal() {
                 </div>
               );
             })}
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel className="flex flex-col gap-1 text-base font-normal">
+              <div className="flex justify-between">
+                {/* @ts-ignore */}
+                <div>Subtotal</div> <div>{cart.subtotal.formattedAmount}</div>
+              </div>
+              <div className="text-xs text-foreground/50">
+                Shipping and taxes calculated at checkout.
+              </div>
+            </DropdownMenuLabel>
           </DropdownMenuGroup>
         )}
       </DropdownMenuContent>

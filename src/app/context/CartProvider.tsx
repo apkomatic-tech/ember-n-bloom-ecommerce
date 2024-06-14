@@ -7,7 +7,6 @@ import { cart } from "@wix/ecom";
 
 export type CartState = {
   cart: cart.Cart;
-  subTotal: number;
   getCart: () => void;
   addToCart: (productId: string, quantity?: number) => void;
   removeFromCart: (productId: string) => void;
@@ -17,7 +16,6 @@ export type CartState = {
 
 export const CartContext = createContext<CartState>({
   cart: {},
-  subTotal: 0,
   getCart: async () => {},
   addToCart: async () => {},
   removeFromCart: async () => {},
@@ -28,7 +26,6 @@ export const CartContext = createContext<CartState>({
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const wixClient = useContext(WixClientContext);
   const [cart, setCart] = useState<cart.Cart>({});
-  const [subTotal, setSubTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
@@ -36,7 +33,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(true);
     try {
       const response = await wixClient.currentCart.getCurrentCart();
-      // setSubTotal(response.subtotal?.amount);
       setCart(response);
     } catch (err: any) {
       console.error("get cart error", err.message);
@@ -91,7 +87,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         isLoading,
         isAddingToCart,
         removeFromCart,
-        subTotal,
       }}
     >
       {children}

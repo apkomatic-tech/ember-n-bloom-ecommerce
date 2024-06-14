@@ -61,7 +61,7 @@ async function ProductDetailPage({ params }: { params: { slug: string } }) {
             dangerouslySetInnerHTML={{ __html: description }}
           ></div>
         )}
-        <AddToCartButton productId={product._id} />
+        <AddToCartButton productId={product._id!} productName={product.name!} />
       </div>
     </div>
   );

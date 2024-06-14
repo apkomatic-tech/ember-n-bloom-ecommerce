@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WixClientStoreProvider } from "./context/WixClientStoreProvider";
 import { CartProvider } from "./context/CartProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
             <Footer />
           </CartProvider>
         </WixClientStoreProvider>
+        <Toaster />
       </body>
     </html>
   );

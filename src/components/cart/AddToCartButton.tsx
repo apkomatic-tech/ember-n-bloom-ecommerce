@@ -4,20 +4,35 @@ import { useContext } from "react";
 import { Button } from "../ui/button";
 import { CartContext } from "@/app/context/CartProvider";
 import { Loader2 } from "lucide-react";
-type AddToCartButtonProps = {
-  // figure our type of Product (@wix sdk)
-  productId: string;
-};
-export default function AddToCartButton({ productId }: AddToCartButtonProps) {
-  const { addToCart, isAddingToCart } = useContext(CartContext);
+import { useToast } from "../ui/use-toast";
 
+type AddToCartButtonProps = {
+  productId: string;
+  productName: string;
+};
+
+export default function AddToCartButton({
+  productId,
+  productName,
+}: AddToCartButtonProps) {
+  const { addToCart, isAddingToCart } = useContext(CartContext);
+  const { toast } = useToast();
   return (
     <Button
       className="w-full md:w-1/2"
       variant={"default"}
       disabled={isAddingToCart}
       onClick={async () => {
-        addToCart(productId, 1);
+        await addToCart(productId, 1);
+        toast({
+          variant: "success",
+          title: "Added to cart!",
+          description: (
+            <div>
+              <span className="italic">{productName}</span> is now in your cart
+            </div>
+          ),
+        });
       }}
     >
       {isAddingToCart ? (
