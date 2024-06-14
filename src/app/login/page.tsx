@@ -18,7 +18,8 @@ import { WixClientContext } from "../context/WixClientStoreProvider";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { LoginState } from "@wix/sdk";
-import { Loader2 } from "lucide-react";
+import { Loader2, ThumbsUpIcon } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -45,6 +46,7 @@ export default function LoginPage() {
   const [mode, setMode] = useState<Mode>(Mode.Login);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     form.reset();
@@ -91,6 +93,14 @@ export default function LoginPage() {
           });
           wixClient.auth.setTokens(tokens);
           router.push("/");
+          toast({
+            variant: "success",
+            description: (
+              <div className="flex items-center gap-2">
+                <ThumbsUpIcon /> <span>Successfully logged in</span>
+              </div>
+            ),
+          });
           break;
         case LoginState.FAILURE:
           switch (response.errorCode) {

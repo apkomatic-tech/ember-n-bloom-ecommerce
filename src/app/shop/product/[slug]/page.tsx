@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { wixStoreServer } from "@/lib/wixStoreServer";
 import { Badge } from "@/components/ui/badge";
 import { notFound } from "next/navigation";
+import AddToCartButton from "@/components/cart/AddToCartButton";
 
 async function getProductDetailsBySlug(slug: string) {
   const wixStore = await wixStoreServer();
@@ -56,14 +56,12 @@ async function ProductDetailPage({ params }: { params: { slug: string } }) {
         <h1 className="text-2xl font-bold lg:text-3xl">{name}</h1>
         <p className="text-xl">{productPriceFormatted}</p>
         {description && (
-          <d
+          <div
             className="text-black/60"
             dangerouslySetInnerHTML={{ __html: description }}
-          ></d>
+          ></div>
         )}
-        <Button className="w-full md:w-1/2" variant={"default"}>
-          Add To Cart
-        </Button>
+        <AddToCartButton productId={product._id!} productName={product.name!} />
       </div>
     </div>
   );
