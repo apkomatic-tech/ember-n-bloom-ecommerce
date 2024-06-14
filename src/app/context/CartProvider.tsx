@@ -2,13 +2,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { WixClientContext } from "./WixClientStoreProvider";
 import { cart } from "@wix/ecom";
+import { useToast } from "@/components/ui/use-toast";
+import { ShoppingCartIcon } from "lucide-react";
 
 // TODO: add context types
 
 export type CartState = {
   cart: cart.Cart;
   getCart: () => void;
-  addToCart: (productId: string, quantity?: number) => void;
+  addToCart: (
+    productId: string,
+    productName: string,
+    quantity?: number,
+  ) => void;
   removeFromCart: (productId: string) => void;
   isLoading: boolean;
   isAddingToCart: boolean;
@@ -28,6 +34,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<cart.Cart>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const { toast } = useToast();
 
   async function getCart() {
     setIsLoading(true);
@@ -41,7 +48,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
-  async function addToCart(productId: string, quantity?: number) {
+  async function addToCart(
+    productId: string,
+    productName: string,
+    quantity?: number,
+  ) {
     try {
       setIsAddingToCart(true);
       const response = await wixClient.currentCart.addToCurrentCart({
@@ -57,6 +68,14 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       setCart(response.cart!);
+      toast({
+        description: (
+          <div className="flex items-center gap-2">
+            <ShoppingCartIcon />
+            <span>&quot;{productName}&quot;</span> is now in your cart
+          </div>
+        ),
+      });
     } catch (err: any) {
       console.error("add to cart error", err.message);
     } finally {

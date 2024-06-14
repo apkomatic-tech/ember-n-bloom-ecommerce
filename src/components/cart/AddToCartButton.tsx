@@ -16,23 +16,13 @@ export default function AddToCartButton({
   productName,
 }: AddToCartButtonProps) {
   const { addToCart, isAddingToCart } = useContext(CartContext);
-  const { toast } = useToast();
   return (
     <Button
       className="w-full md:w-1/2"
       variant={"default"}
       disabled={isAddingToCart}
       onClick={async () => {
-        await addToCart(productId, 1);
-        toast({
-          variant: "success",
-          title: "Added to cart!",
-          description: (
-            <div>
-              <span className="italic">{productName}</span> is now in your cart
-            </div>
-          ),
-        });
+        await addToCart(productId, productName, 1);
       }}
     >
       {isAddingToCart ? (

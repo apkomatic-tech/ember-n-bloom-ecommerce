@@ -1,5 +1,3 @@
-"use client";
-
 import Profile from "@/components/account/Profile";
 
 export default function AccountPage() {
