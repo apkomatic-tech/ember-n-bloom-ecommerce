@@ -1,7 +1,7 @@
 "use client";
 
 import { CartContext } from "@/app/context/CartProvider";
-import { ShoppingCartIcon, Trash2Icon } from "lucide-react";
+import { Loader2, ShoppingCartIcon, Trash2Icon } from "lucide-react";
 import { useContext } from "react";
 import {
   DropdownMenu,
@@ -15,9 +15,11 @@ import {
 import { media } from "@wix/sdk";
 import Image from "next/image";
 import { useToast } from "../ui/use-toast";
+import { Button } from "../ui/button";
 
 export default function CartModal() {
-  const { cart, isLoading, removeFromCart } = useContext(CartContext);
+  const { cart, isLoading, removeFromCart, redirectToCheckout } =
+    useContext(CartContext);
   const cartItems = cart.lineItems || [];
   const itemsTotal =
     cartItems.reduce((total, item) => {
@@ -85,6 +87,7 @@ export default function CartModal() {
                       <button
                         type="button"
                         className="text-xs"
+                        disabled={isLoading}
                         onClick={async () => {
                           const removeItemId = item?._id as string;
                           await removeFromCart(removeItemId);
@@ -117,6 +120,18 @@ export default function CartModal() {
               <div className="text-xs text-foreground/50">
                 Shipping and taxes calculated at checkout.
               </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>
+              <Button
+                variant={"default"}
+                className="w-full"
+                onClick={redirectToCheckout}
+                disabled={isLoading}
+              >
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Checkout
+              </Button>
             </DropdownMenuLabel>
           </DropdownMenuGroup>
         )}

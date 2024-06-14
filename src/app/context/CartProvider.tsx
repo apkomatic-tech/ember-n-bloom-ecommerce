@@ -5,8 +5,6 @@ import { cart } from "@wix/ecom";
 import { useToast } from "@/components/ui/use-toast";
 import { ShoppingCartIcon } from "lucide-react";
 
-// TODO: add context types
-
 export type CartState = {
   cart: cart.Cart;
   getCart: () => void;
@@ -18,6 +16,7 @@ export type CartState = {
   removeFromCart: (productId: string) => void;
   isLoading: boolean;
   isAddingToCart: boolean;
+  redirectToCheckout: () => void;
 };
 
 export const CartContext = createContext<CartState>({
@@ -27,24 +26,25 @@ export const CartContext = createContext<CartState>({
   removeFromCart: async () => {},
   isLoading: true,
   isAddingToCart: false,
+  redirectToCheckout: async () => {},
 });
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const wixClient = useContext(WixClientContext);
   const [cart, setCart] = useState<cart.Cart>({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [isAddingToCart, setAddingToCart] = useState(false);
   const { toast } = useToast();
 
   async function getCart() {
-    setIsLoading(true);
+    setLoading(true);
     try {
       const response = await wixClient.currentCart.getCurrentCart();
       setCart(response);
     } catch (err: any) {
       console.error("get cart error", err.message);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   }
 
@@ -54,7 +54,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     quantity?: number,
   ) {
     try {
-      setIsAddingToCart(true);
+      setAddingToCart(true);
       const response = await wixClient.currentCart.addToCurrentCart({
         lineItems: [
           {
@@ -79,7 +79,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     } catch (err: any) {
       console.error("add to cart error", err.message);
     } finally {
-      setIsAddingToCart(false);
+      setAddingToCart(false);
     }
   }
 
@@ -90,7 +90,17 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       setCart(response.cart!);
     } catch (err: any) {
       console.error("remove from cart error", err.message);
+    } finally {
+      setLoading(false);
     }
+  }
+
+  async function redirectToCheckout() {
+    setLoading(true);
+    window.setTimeout(() => {
+      alert("This is a demo site. Checkout is currently not enabled.");
+      setLoading(false);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -106,6 +116,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         isLoading,
         isAddingToCart,
         removeFromCart,
+        redirectToCheckout,
       }}
     >
       {children}
