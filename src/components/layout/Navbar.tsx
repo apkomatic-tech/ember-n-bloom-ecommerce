@@ -20,6 +20,7 @@ import { CATEGORY_LINKS } from "@/constants";
 
 const Menu = dynamic(() => import("./Menu.mobile"), { ssr: false });
 const AccountLinks = dynamic(() => import("./AccountLinks"), { ssr: false });
+const CartModal = dynamic(() => import("../cart/CartModal"), { ssr: false });
 
 const Navbar = () => {
   return (
@@ -64,8 +65,9 @@ const Navbar = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <div>
+            <div className="flex gap-4">
               <AccountLinks />
+              <CartModal />
             </div>
           </div>
           <div className="md:hidden">

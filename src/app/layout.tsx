@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WixClientStoreProvider } from "./context/WixClientStoreProvider";
+import { CartProvider } from "./context/CartProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,9 +33,11 @@ export default function RootLayout({
         )}
       >
         <WixClientStoreProvider>
-          <Navbar />
-          <main className="mx-auto max-w-screen-2xl">{children}</main>
-          <Footer />
+          <CartProvider>
+            <Navbar />
+            <main className="mx-auto max-w-screen-2xl">{children}</main>
+            <Footer />
+          </CartProvider>
         </WixClientStoreProvider>
       </body>
     </html>
