@@ -6,7 +6,7 @@ Ember & Bloom is a next.js project that showcases a premium loose leaf tea store
 
 - View products
 - Read about the shop
-- View cart, checkout, and order details
+- View cart, ~checkout, and order details~
 
 ## Pages
 
@@ -15,8 +15,8 @@ Ember & Bloom is a next.js project that showcases a premium loose leaf tea store
 - Shop
 - Product Details
 - Cart
-- Checkout
-- Order Details
+- ~Checkout~
+- ~Order Details~
 
 ## Tech Stack
 
